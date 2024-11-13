@@ -34,3 +34,24 @@ password varchar(64) not null
 ) DEFAULT CHARSET=utf8mb4;
 
 SELECT * FROM usuario;
+
+
+
+CREATE TABLE produto(
+id int not null AUTO_INCREMENT primary key,
+nome varchar(50) not null,
+valor decimal(15, 2) not null
+) DEFAULT CHARSET=utf8mb4;
+
+SELECT * FROM produto;
+
+
+
+CREATE TABLE fornecedor(
+id int not null AUTO_INCREMENT primary key,
+razao_social varchar(75) not null,
+nome_fantasia varchar(75) not null,
+cnpj varchar(20) not null
+) DEFAULT CHARSET=utf8mb4;
+
+SELECT * FROM fornecedor;
