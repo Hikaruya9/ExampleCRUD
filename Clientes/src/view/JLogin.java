@@ -166,7 +166,7 @@ public class JLogin extends javax.swing.JFrame {
                 SwingUtilities.invokeLater(() -> {
                     JMain jMain = new JMain();
                     jMain.setLocationRelativeTo(null);
-                    jMain.setVisible(true);
+                    jMain.setVisible(true);   
                 });
             }
         }else{

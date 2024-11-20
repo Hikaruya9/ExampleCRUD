@@ -4,17 +4,27 @@
  */
 package view;
 
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import model.Client;
+
 /**
  *
  * @author Aluno
  */
 public class JMain extends javax.swing.JFrame {
+    private ArrayList<Client> clients;
 
     /**
      * Creates new form JMain
      */
     public JMain() {
         initComponents();
+        clients = new ArrayList<>(); //Initialize list
+        clients.add(new Client ("1","Jorge","000.000.000-50","jorsilva@gmail.com", "(51) 94670-7283", "Rua Rubem Berta, 1700"));
+        clients.add(new Client ("2","Cleber","000.000.000-99","clebersilveira@gmail.com", "(51) 99476-7654", "Rua Oswaldo Bastos, 1256"));
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
     }
 
     /**
