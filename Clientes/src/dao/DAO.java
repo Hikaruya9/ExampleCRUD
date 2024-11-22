@@ -9,6 +9,9 @@ import model.Client;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Aluno
@@ -29,10 +32,26 @@ public class DAO {
         try{
             pst.connection.prepareStatement(CREATE_CLIENT);
             int i = 1;
-            
-        }catch(Exception e){
-            
+            pst.setString(i++, client.getName());
+            pst.setString(i++, client.getCpfCnpj());
+            pst.setString(i++, client.getEmail());
+            pst.setString(i++, client.getPhoneNumber());
+            pst.setString(i++, client.getAdress());
+            pst.execute();
+            connection.commit();
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
         }
     }
+
+    public ArrayList<Client> listClients(){
+        
+    }
     
+    private void closeConnection() {
+        
+    }    
 }

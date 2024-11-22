@@ -161,14 +161,15 @@ public class JLogin extends javax.swing.JFrame {
         System.out.println(hash);
         
         if(txtUser.getText().isBlank() || new String(txtPassword.getPassword()).isBlank()) {
-            if(hash.equals("2EFB46BED4B74366A787F07E09B51A50")){
-                JOptionPane.showMessageDialog(frame, "Preencha todos os campos!");
+//            if(hash.equals("2EFB46BED4B74366A787F07E09B51A50")){
                 SwingUtilities.invokeLater(() -> {
                     JMain jMain = new JMain();
                     jMain.setLocationRelativeTo(null);
                     jMain.setVisible(true);   
+                    dispose();
+//                    JOptionPane.showMessageDialog(frame, "Preencha todos os campos!");
                 });
-            }
+//            }
         }else{
             JOptionPane.showMessageDialog(frame, "Verifique as informações", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
