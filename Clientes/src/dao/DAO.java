@@ -48,7 +48,19 @@ public class DAO {
     }
 
     public ArrayList<Client> listClients(){
-        
+        Connection connection = (Connection) Conexao.getConn();
+        ArrayList<Client> clients = new ArrayList();
+        try{
+            pst = connection.prepareStatement(LIST_CLIENTS);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                clients.add(new Client(rs.getString("ID"), rs.getString("Name"), rs.getString("CpfCnpj"), rs.getString("Email"), rs.getString("PhoneNumber"), rs.getString("Adress")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
+        }
     }
     
     private void closeConnection() {
