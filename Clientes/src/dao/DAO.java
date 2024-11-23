@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.User;
 /**
  *
  * @author Aluno
@@ -30,7 +31,7 @@ public class DAO {
     public void createClient(Client client){
         Connection connection = Conexao.getConn().openConnection();
         try{
-            pst.connection.prepareStatement(CREATE_CLIENT);
+            pst = connection.prepareStatement(CREATE_CLIENT);
             int i = 1;
             pst.setString(i++, client.getName());
             pst.setString(i++, client.getCpfCnpj());
@@ -46,8 +47,66 @@ public class DAO {
             closeConnection();
         }
     }
+    
+    public Client retrieveClient(String id) throws Exception{
+        Connection connection = Conexao.getConn().openConnection();
+        Client client = null;
+        try{
+            pst = connection.prepareStatement(RETRIEVE_CLIENT);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                client = new Client(rs.getString("ID"), rs.getString("Name"), rs.getString("CpfCnpj"), rs.getString("Email"), rs.getString("PhoneNumber"), rs.getString("Adress"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+        if(client==null){
+            JOptionPane.showMessageDialog(null,"Não foi encontrado nenhum cliente!", "", JOptionPane.WARNING_MESSAGE);
+            throw new Exception("Não foi encontrado nenhum cliente!");
+        }
+        return client;
+    }
+    
+    public void updateClient(String id, Client client){
+        Connection connection = Conexao.getConn().openConnection();
+        try{
+            pst = connection.prepareStatement(UPDATE_CLIENT);
+            int i = 1;
+            pst.setString(i++, client.getName());
+            pst.setString(i++, client.getCpfCnpj());
+            pst.setString(i++, client.getEmail());
+            pst.setString(i++, client.getPhoneNumber());
+            pst.setString(i++, client.getAdress());
+            pst.setString(i++, id);
+            pst.execute();
+            connection.commit();
+            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+    }
+    
+    public void deleteClient(String id){
+        Connection connection = Conexao.getConn().openConnection();
+        try{
+            pst = connection.prepareStatement(DELETE_CLIENT);
+            pst.setString(1, id);
+            pst.execute();
+            connection.commit();
+            JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+    }
 
-    public ArrayList<Client> listClients(){
+    public ArrayList<Client> listClients() throws Exception{
         Connection connection = (Connection) Conexao.getConn();
         ArrayList<Client> clients = new ArrayList();
         try{
@@ -61,9 +120,43 @@ public class DAO {
         }finally{
             closeConnection();
         }
+        if(clients.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não há clientes cadastrados!", "", JOptionPane.WARNING_MESSAGE);
+            throw new Exception("Não há clientes cadastrados!");
+        }
+        return clients;
+    }
+    
+    public User retrieveUser(String username, String passwordEncrypted) throws Exception{
+        Connection connection = Conexao.getConn().openConnection();
+        User user = null;
+        try{
+            pst = connection.prepareStatement(RETRIEVE_USER);
+            pst.setString(1, username);
+            pst.setString(2, passwordEncrypted);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                user = new User(rs.getInt("ID"), rs.getString("Username"), rs.getString("Password"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+        if(user==null){
+            JOptionPane.showMessageDialog(null, "Usuário não existe!", "", JOptionPane.WARNING_MESSAGE);
+            throw new Exception("Usuário não existe!");
+        }
+        return user;
     }
     
     private void closeConnection() {
-        
+        try{
+            if(rs!=null)rs.close();
+            if(pst!=null)pst.close();
+            Conexao.getConn().closeConnection();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }    
 }
