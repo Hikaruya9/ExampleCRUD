@@ -4,6 +4,7 @@
  */
 package view;
 
+import dao.DAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import model.Client;
@@ -20,6 +21,13 @@ public class JMain extends javax.swing.JFrame {
      */
     public JMain() {
         initComponents();
+        DAO dao = new DAO();
+        try{
+            clients = dao.listClients();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
         clients = new ArrayList<>(); //Initialize list
         clients.add(new Client ("1","Jorge","000.000.000-50","jorsilva@gmail.com", "(51) 94670-7283", "Rua Rubem Berta, 1700"));
         clients.add(new Client ("2","Cleber","000.000.000-99","clebersilveira@gmail.com", "(51) 99476-7654", "Rua Oswaldo Bastos, 1256"));
