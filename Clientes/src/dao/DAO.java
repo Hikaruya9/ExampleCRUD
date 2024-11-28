@@ -21,7 +21,7 @@ public class DAO {
     private static PreparedStatement pst = null;
     private static ResultSet rs = null;
     
-    private static String CREATE_CLIENT = "INSERT INTO client(name,cpfCnpj,email,phoneNumber,adress) VALUES(?,?,?,?,?)";
+//    private static String CREATE_CLIENT = "INSERT INTO client(name,cpfCnpj,email,phoneNumber,adress) VALUES(?,?,?,?,?)";
     private static String RETRIEVE_CLIENT = "SELECT id,name,cpfCnpj,email,phoneNumber,adress FROM client WHERE id = ?";
     private static String UPDATE_CLIENT = "UPDATE client SET name = ?,cpfCnpj = ?,email = ?,phoneNumber = ?,adress = ? WHERE id = ?";
     private static String DELETE_CLIENT = "DELETE FROM client WHERE id = ?";
@@ -29,9 +29,8 @@ public class DAO {
     private static String RETRIEVE_USER = "SELECT id,username,password FROM user WHERE username = ? AND passowrd = ?";
     
     public void createClient(Client client){
-        Connection connection = Conexao.getConn().openConnection();
-        try{
-            pst = connection.prepareStatement(CREATE_CLIENT);
+        String sql = "INSERT INTO client(name,cpfCnpj,email,phoneNumber,adress) VALUES(?,?,?,?,?)";
+        try(Connection connection = Conexao.getConnection(); PreparedStatement pst = connection.prepareStatement(sql)){
             int i = 1;
             pst.setString(i++, client.getName());
             pst.setString(i++, client.getCpfCnpj());
@@ -43,13 +42,11 @@ public class DAO {
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
     }
     
     public Client retrieveClient(String id) throws Exception{
-        Connection connection = Conexao.getConn().openConnection();
+        Connection connection = Conexao.getConnection();
         Client client = null;
         try{
             pst = connection.prepareStatement(RETRIEVE_CLIENT);
@@ -60,8 +57,6 @@ public class DAO {
             }
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
         if(client==null){
             JOptionPane.showMessageDialog(null,"Não foi encontrado nenhum cliente!", "", JOptionPane.WARNING_MESSAGE);
@@ -71,7 +66,7 @@ public class DAO {
     }
     
     public void updateClient(String id, Client client){
-        Connection connection = Conexao.getConn().openConnection();
+        Connection connection = Conexao.getConnection();
         try{
             pst = connection.prepareStatement(UPDATE_CLIENT);
             int i = 1;
@@ -86,13 +81,11 @@ public class DAO {
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
     }
     
     public void deleteClient(String id){
-        Connection connection = Conexao.getConn().openConnection();
+        Connection connection = Conexao.getConnection();
         try{
             pst = connection.prepareStatement(DELETE_CLIENT);
             pst.setString(1, id);
@@ -101,13 +94,11 @@ public class DAO {
             JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
     }
 
     public ArrayList<Client> listClients() throws Exception{
-        Connection connection = (Connection) Conexao.getConn();
+        Connection connection = (Connection) Conexao.getConnection();
         ArrayList<Client> clients = new ArrayList();
         try{
             pst = connection.prepareStatement(LIST_CLIENTS);
@@ -128,7 +119,7 @@ public class DAO {
     }
     
     public User retrieveUser(String username, String passwordEncrypted) throws Exception{
-        Connection connection = Conexao.getConn().openConnection();
+        Connection connection = Conexao.getConnection();
         User user = null;
         try{
             pst = connection.prepareStatement(RETRIEVE_USER);
@@ -140,8 +131,6 @@ public class DAO {
             }
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
         if(user==null){
             JOptionPane.showMessageDialog(null, "Usuário não existe!", "", JOptionPane.WARNING_MESSAGE);
@@ -150,11 +139,11 @@ public class DAO {
         return user;
     }
     
-    private void closeConnection() {
+    private void closeConnection() { 
         try{
             if(rs!=null)rs.close();
             if(pst!=null)pst.close();
-            Conexao.getConn().closeConnection();
+            Conexao.getConnection();
         }catch(SQLException e){
             e.printStackTrace();
         }

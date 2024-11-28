@@ -4,9 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/model/User.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/view/JLogin.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/dao/DAO.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/controller/Encryption.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/model/TableModel.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/controller/Conexao.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/view/JMain.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/model/Client.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Clientes/src/dao/DB.java</file>
         </group>
     </open-files>
 </project-private>

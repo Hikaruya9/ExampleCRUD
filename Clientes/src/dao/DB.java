@@ -15,9 +15,8 @@ public class DB {
     
     public static void main(String[] args) {
         try{
-            connection = Conexao.getConn().openConnection();
+            connection = Conexao.getConnection();
             System.out.println("Base criada com sucesso!");
-            Conexao.getConn().closeConnection();
         }catch(Exception e){
             System.out.println(e.getMessage());
             System.exit(0);
