@@ -108,8 +108,6 @@ public class DAO {
             }
         }catch(SQLException e){
             e.printStackTrace();
-        }finally{
-            closeConnection();
         }
         if(clients.isEmpty()){
             JOptionPane.showMessageDialog(null, "Não há clientes cadastrados!", "", JOptionPane.WARNING_MESSAGE);
@@ -139,7 +137,7 @@ public class DAO {
         return user;
     }
     
-    private void closeConnection() { 
+    /*private void closeConnection() { 
         try{
             if(rs!=null)rs.close();
             if(pst!=null)pst.close();
@@ -147,5 +145,5 @@ public class DAO {
         }catch(SQLException e){
             e.printStackTrace();
         }
-    }    
+    }*/    
 }
