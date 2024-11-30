@@ -53,6 +53,7 @@ public class JMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btnRegister.setText("Register");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -122,7 +123,10 @@ public class JMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        J
+        JRegister Jregister = new JRegister();
+        Jregister.setLocationRelativeTo(Jregister);
+        Jregister.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        Jregister.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**

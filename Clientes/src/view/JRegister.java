@@ -5,6 +5,7 @@
 package view;
 
 import dao.DAO;
+import javax.swing.JOptionPane;
 import model.Client;
 
 /**
@@ -137,7 +138,7 @@ public class JRegister extends javax.swing.JFrame {
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         DAO dao = new DAO();
         dao.createClient(new Client(null, txtName.getText(), txtCpfCnpj.getText(), txtEmail.getText(), txtPhoneNumber.getText(), txtAdress.getText()));
-        
+        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
     }//GEN-LAST:event_btnInsertActionPerformed
 
     /**
